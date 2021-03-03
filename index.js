@@ -19,7 +19,15 @@ import { readFile } from 'node:fs/promises';
 const app = express();
 app.get('/', async (_, res) => {
   try {
-    const data = await fs.readFile('./index.html', 'utf-8');
+    const data = await fs.readFile('./public/index.html', 'utf-8');
+    res.send(data);
+  } catch (error) {
+    if (error) res.status(500).send('Sorry, something was wrong 😰 !');
+  }
+});
+app.use(async (req, res) => {
+  try {
+    const data = await fs.readFile('./public/404.html', 'utf-8');
     res.send(data);
   } catch (error) {
     if (error) res.status(500).send('Sorry, something was wrong 😰 !');
